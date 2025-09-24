@@ -40,4 +40,4 @@ Para clonar e executar este projeto, é necessário ter o **Git**, **Node.js** 
 4. Acesse o servidor em http://localhost:4000 para ter acesso às rotas da API e à documentação Swagger em http://localhost:4000/docs.
 
 
-👨‍💻 Projeto desenvolvido por Gabriel Felipe Oliveira Freitas, João Lucas Miranda Garcia, Jonatham Cordeiro Aguiar Luz e Victor Cazuo Hino Ayabe.
+👨‍💻 Projeto desenvolvido por Gabriel Felipe Oliveira Freitas, João Lucas Miranda Garcia, Jonatham Cordeiro Aguiar Luz e Maysson Alexandre de Oliveira Ferro.
