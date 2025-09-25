@@ -30,6 +30,7 @@ Para clonar e executar este projeto, é necessário ter o **Git**, **Node.js** 
    ```
 
 2. Copie o arquivo `.env.example` para `.env` e ajuste as variáveis de ambiente conforme necessário.
+
 3. Subir a aplicação Docker.
 
    ```bash
@@ -37,7 +38,13 @@ Para clonar e executar este projeto, é necessário ter o **Git**, **Node.js** 
    docker compose up -d
    ```
 
-4. Acesse o servidor em http://localhost:4000 para ter acesso às rotas da API e à documentação Swagger em http://localhost:4000/docs.
+4. Execute a aplicação
+
+   ```bash
+   npm run dev
+   ```
+
+5. Acesse o servidor em http://localhost:4000 para ter acesso às rotas da API e à documentação Swagger em http://localhost:4000/docs.
 
 
 👨‍💻 Projeto desenvolvido por Gabriel Felipe Oliveira Freitas, João Lucas Miranda Garcia, Jonatham Cordeiro Aguiar Luz e Maysson Alexandre de Oliveira Ferro.
