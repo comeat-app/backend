@@ -24,8 +24,8 @@ export async function autenticacaoRotas(app: FastifyTypedInstance) {
       const { email, senha } = request.body;
       const { contaId } = await EntrarContaUseCase.execute({ email, senha });
 
-      const oneHourInSeconds = 60 * 60;
-      const tokenAcesso = request.server.jwt.sign({ sub: contaId }, { expiresIn: oneHourInSeconds });
+      const horaEmSegundos = 60 * 60;
+      const tokenAcesso = request.server.jwt.sign({ sub: contaId }, { expiresIn: horaEmSegundos });
 
       return reply.status(200).send({
         tokenAcesso,
