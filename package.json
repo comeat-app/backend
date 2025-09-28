@@ -9,6 +9,9 @@
     "prisma:reset": "prisma db push --force-reset && prisma db seed",
     "prisma:generate": "prisma generate"
   },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^11.1.0",
@@ -26,7 +29,7 @@
   "devDependencies": {
     "@eslint/js": "^9.35.0",
     "@types/bcrypt": "^6.0.0",
-    "@types/node": "^24.3.1",
+    "@types/node": "^24.5.2",
     "eslint": "^9.35.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
