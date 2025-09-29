@@ -23,23 +23,34 @@ export async function autenticacaoRotas(app: FastifyTypedInstance) {
       },
     },
     async (request, reply) => {
-      const { email, senha } = request.body;
-      const { contaId } = await EntrarContaUseCase.execute({ email, senha });
+      try {
+        const { email, senha } = request.body;
+        const { contaId } = await EntrarContaUseCase.execute({ email, senha });
+        const verificado = await prismaClient.detalhesConta.findUnique({
+          where: { contaId },
+          select: { emailVerificado: true },
+        });
 
-      const horaEmSegundos = 60 * 60;
-      const tokenAcesso = request.server.jwt.sign({ sub: contaId }, { expiresIn: horaEmSegundos });
+        if (!verificado?.emailVerificado) {
+          return reply.status(401).send({ erro: 'Email não verificado' });
+        }
 
-      await prismaClient.contaTokens.create({
-        data: {
-          contaId,
-          token: tokenAcesso,
-          tipo: 'acesso',
-        },
-      });
+        const horaEmSegundos = 60 * 60;
+        const tokenAcesso = request.server.jwt.sign({ sub: contaId }, { expiresIn: horaEmSegundos });
 
-      return reply.status(200).send({
-        tokenAcesso,
-      });
+        await prismaClient.contaTokens.create({
+          data: {
+            contaId,
+            token: tokenAcesso,
+            tipo: 'acesso',
+          },
+        });
+        return reply.status(200).send({
+          tokenAcesso,
+        });
+      } catch {
+        return reply.status(401).send({ erro: 'Credenciais inválidas' });
+      }
     }
   );
 }
