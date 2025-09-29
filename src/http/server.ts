@@ -43,7 +43,14 @@ app.register(routes);
 
 app.setErrorHandler((e: FastifyError & { code?: string }, _, reply) => {
   if (e instanceof ZodError) return reply.status(400).send(z.flattenError(e));
-
+  if (e.code === 'FST_ERR_VALIDATION') {
+    return reply.status(400).send({
+      error: {
+        code: 'error',
+        message: 'Preencha os campos obrigatórios',
+      },
+    });
+  }
   const statusCode = e.statusCode ?? 500;
   const code = e.code ?? 'error';
   const message = e.message ? e.message : 'Internal Server Error';

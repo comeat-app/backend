@@ -1,3 +1,4 @@
+import { prismaClient } from '@/lib/prisma/prisma-client';
 import { EntrarContaUseCase } from '@/modules/autenticacao/usecases/entrar-conta-usecase';
 import { FastifyTypedInstance } from '@/types/fastify-typed-instance';
 import z from 'zod';
@@ -16,6 +17,7 @@ export async function autenticacaoRotas(app: FastifyTypedInstance) {
         }),
         response: {
           200: z.object({ tokenAcesso: z.string() }),
+          400: z.object({ erro: z.string() }),
           401: z.object({ erro: z.string() }),
         },
       },
@@ -26,6 +28,14 @@ export async function autenticacaoRotas(app: FastifyTypedInstance) {
 
       const horaEmSegundos = 60 * 60;
       const tokenAcesso = request.server.jwt.sign({ sub: contaId }, { expiresIn: horaEmSegundos });
+
+      await prismaClient.contaTokens.create({
+        data: {
+          contaId,
+          token: tokenAcesso,
+          tipo: 'acesso',
+        },
+      });
 
       return reply.status(200).send({
         tokenAcesso,
