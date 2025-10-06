@@ -1,10 +1,8 @@
 # 👩‍💻 Backend – Comeat
 
-
 ## 🎯 Visão geral
 
 Este repositório é responsável pelo backend da aplicação Comeat, uma plataforma de venda de produtos de feiras.
-
 
 ## 📚 Tecnologias
 
@@ -14,7 +12,6 @@ Este repositório é responsável pelo backend da aplicação Comeat, uma plataf
 - **Prisma**
 - **TypeScript**
 - **Zod**
-
 
 ## 🚀 Como executar
 
@@ -45,6 +42,5 @@ Para clonar e executar este projeto, é necessário ter o **Git**, **Node.js** 
    ```
 
 5. Acesse o servidor em http://localhost:4000 para ter acesso às rotas da API e à documentação Swagger em http://localhost:4000/docs.
-
 
 👨‍💻 Projeto desenvolvido por Gabriel Felipe Oliveira Freitas, João Lucas Miranda Garcia, Jonatham Cordeiro Aguiar Luz e Maysson Alexandre de Oliveira Ferro.
