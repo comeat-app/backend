@@ -7,7 +7,7 @@ import { mandarEmail } from '../../../utils/enviar-email';
 
 export async function registroContaRota(app: FastifyTypedInstance) {
   app.post(
-    '/contas/registrar',
+    '/registrar',
     {
       schema: {
         tags: ['contas'],
@@ -86,12 +86,15 @@ export async function registroContaRota(app: FastifyTypedInstance) {
           mensagem: 'Conta criada, verifique seu e-mail',
         });
       } catch (error: unknown) {
-        if (error instanceof Error && error.message.includes('já está em uso')) {
-          return reply.status(409).send({ erro: error.message });
+        const mensagem =
+          error instanceof Error ? error.message : 'Erro interno, não foi possível registrar as alterações';
+
+        if (mensagem.includes('em uso')) return reply.status(409).send({ erro: mensagem });
+
+        if (mensagem.includes('inválido') || mensagem.includes('preencha')) {
+          return reply.status(400).send({ erro: mensagem });
         }
-        return reply.status(400).send({
-          erro: 'Erro ao registrar conta.',
-        });
+        return reply.status(503).send({ erro: mensagem });
       }
     }
   );

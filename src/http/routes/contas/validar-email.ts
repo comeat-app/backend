@@ -4,7 +4,7 @@ import z from 'zod';
 
 export async function validarEmail(app: FastifyTypedInstance) {
   app.post(
-    '/contas/validar-email',
+    '/validar-email',
     {
       schema: {
         tags: ['contas'],
