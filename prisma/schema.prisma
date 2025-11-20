@@ -7,16 +7,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  accountId    String    @id @default(ulid()) @map("account_id")
-  email        String    @unique
-  name         String
-  document     String    @unique
-  phone        String    @unique
-  birthDate    DateTime  @map("birth_date")
-  passwordHash String    @map("password_hash")
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime? @updatedAt @map("updated_at")
+model Conta {
+  contaId        String         @id @default(ulid()) @map("conta_id")
+  cpf            String         @unique
+  nome           String
+  dataNascimento DateTime       @map("data_nascimento")
+  telefone       String?        @unique
+  email          String         @unique
+  senhaHash      String         @map("senha_hash")
+  criadoEm       DateTime       @default(now()) @map("criado_em")
+  atualizadoEm   DateTime?      @updatedAt @map("atualizado_em")
+  DetalhesConta  DetalhesConta?
+  ContaTokens    ContaTokens[]
 
-  @@map("accounts")
+  @@map("contas")
+}
+
+model DetalhesConta {
+  detalhesContaId    String  @id @default(ulid()) @map("detalhes_conta_id")
+  contaId            String  @unique @map("conta_id")
+  cep                String?
+  emailVerificado    Boolean @default(false) @map("email_verificado")
+  telefoneVerificado Boolean @default(false) @map("telefone_verificado")
+
+  conta Conta @relation(fields: [contaId], references: [contaId], onDelete: Cascade)
+
+  @@map("detalhes_contas")
+}
+
+model ContaTokens {
+  contaTokenId String   @id @default(ulid()) @map("conta_token_id")
+  contaId      String   @map("conta_id")
+  token        String
+  tipo         String
+  criadoEm     DateTime @default(now()) @map("criado_em")
+
+  conta Conta @relation(fields: [contaId], references: [contaId], onDelete: Cascade)
+
+  @@map("conta_tokens")
 }
